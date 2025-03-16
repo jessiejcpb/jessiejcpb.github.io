@@ -7,7 +7,6 @@
   <style>
     body {
       margin: 0;
-      padding: 0;
       font-family: 'Segoe UI', sans-serif;
       background-color: #f9f9f9;
       color: #333;
@@ -22,50 +21,60 @@
 
     header h1 {
       margin: 0;
-      font-size: 2.5em;
+      font-size: 2.2em;
+    }
+
+    nav {
+      background-color: #00a94f;
+      display: flex;
+      justify-content: center;
+    }
+
+    nav button {
+      background: none;
+      border: none;
+      color: white;
+      padding: 15px 25px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    nav button:hover, nav button.active {
+      background-color: #007e3d;
     }
 
     .container {
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-
-    .about {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-
-    .about p {
-      font-size: 1.1em;
-      color: #555;
-    }
-
-    .portfolio {
-      background: white;
+      max-width: 900px;
+      margin: 30px auto;
       padding: 20px;
+      background: white;
       border-radius: 10px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
 
-    .portfolio h2 {
-      color: #00a94f;
-      margin-bottom: 15px;
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
     }
 
     ul {
       list-style-type: disc;
       padding-left: 20px;
-      margin-bottom: 20px;
     }
 
     ul ul {
       list-style-type: circle;
       margin-top: 10px;
-    }
-
-    li {
-      margin-bottom: 10px;
     }
 
     a {
@@ -91,16 +100,21 @@
 
   <header>
     <h1>Your Name</h1>
-    <p>Welcome to My Portfolio</p>
   </header>
 
-  <div class="container">
-    <section class="about">
-      <h2>About Me</h2>
-      <p>A brief introduction about yourself (your profession, interest, skills, etc.)</p>
-    </section>
+  <nav>
+    <button class="tab-button active" data-tab="about">About Me</button>
+    <button class="tab-button" data-tab="portfolio">Portfolio</button>
+    <button class="tab-button" data-tab="contact">Contact</button>
+  </nav>
 
-    <section class="portfolio">
+  <div class="container">
+    <div id="about" class="tab-content active">
+      <h2>About Me</h2>
+      <p>A brief introduction about yourself (profession, skills, etc.).</p>
+    </div>
+
+    <div id="portfolio" class="tab-content">
       <h2>Portfolio</h2>
       <ul>
         <li>Web Development Projects
@@ -111,23 +125,41 @@
         </li>
         <li>Data Analysis Projects
           <ul>
-            <li><a href="https://example.com/project3" target="_blank">Sales Data Dashboard</a></li>
-            <li><a href="https://example.com/project4" target="_blank">Customer Segmentation Report</a></li>
-          </ul>
-        </li>
-        <li>Other Works
-          <ul>
-            <li><a href="https://example.com/project5" target="_blank">Blog Writing</a></li>
-            <li><a href="https://example.com/project6" target="_blank">Open Source Contribution</a></li>
+            <li><a href="https://example.com/project3" target="_blank">Sales Dashboard</a></li>
+            <li><a href="https://example.com/project4" target="_blank">Customer Segmentation</a></li>
           </ul>
         </li>
       </ul>
-    </section>
+    </div>
+
+    <div id="contact" class="tab-content">
+      <h2>Contact</h2>
+      <p>Email: your.email@example.com</p>
+      <p>LinkedIn: <a href="#">Your LinkedIn</a></p>
+    </div>
   </div>
 
   <footer>
     &copy; 2025 Your Name. All Rights Reserved.
   </footer>
+
+  <script>
+    // 分頁切換功能
+    const buttons = document.querySelectorAll('.tab-button');
+    const tabs = document.querySelectorAll('.tab-content');
+
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        // 移除所有 active 樣式
+        buttons.forEach(btn => btn.classList.remove('active'));
+        tabs.forEach(tab => tab.classList.remove('active'));
+
+        // 為當前按鈕與內容加上 active
+        button.classList.add('active');
+        document.getElementById(button.dataset.tab).classList.add('active');
+      });
+    });
+  </script>
 
 </body>
 </html>
